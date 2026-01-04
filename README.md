@@ -4,7 +4,8 @@ Small helper repo for recovering a broken ComfyUI install by rebuilding a clean 
 
 ## What this repo contains
 - `RECOVERY_GUIDE.md`: step-by-step tutorial (clone ComfyUI, create conda env, restore custom-node deps).
-- `environment.yml`: a reproducible conda environment definition (Python + PyTorch + CUDA + pip deps).
+- `environment.yml`: Ubuntu/WSL2 environment (conda PyTorch + `pytorch-cuda`).
+- `environment.windows.yml`: Windows-native environment (pip PyTorch CUDA wheels).
 
 ## How to use
 1. Clone ComfyUI:
@@ -13,11 +14,17 @@ Small helper repo for recovering a broken ComfyUI install by rebuilding a clean 
    cd ComfyUI
    ```
 2. Copy the files from this repo into the ComfyUI folder:
-   - Copy `environment.yml` to the ComfyUI root
+   - Ubuntu/WSL2: copy `environment.yml` to the ComfyUI root
+   - Windows: copy `environment.windows.yml` to the ComfyUI root
    - (Optional) Copy `RECOVERY_GUIDE.md` for reference
 3. Create + activate the environment:
    ```bash
+   # Ubuntu / WSL2
    conda env create -f environment.yml
+
+   # Windows
+   conda env create -f environment.windows.yml
+
    conda activate comfy
    ```
 4. Restore node dependencies:

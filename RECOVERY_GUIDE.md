@@ -30,11 +30,17 @@ cd ComfyUI
 ```
 
 ### 2) Create the environment
-Instead of manual `pip install` commands, use the provided `environment.yml`. This ensures your Python version and PyTorch/CUDA versions are locked to a known-good combination.
+Instead of manual `pip install` commands, use the provided conda environment file.
+
+- **Ubuntu / WSL2 (recommended):** use `environment.yml` (conda + `pytorch-cuda`)
+- **Windows (native):** use `environment.windows.yml` (pip PyTorch wheels)
 
 ```bash
-# Create the environment from the file
+# Ubuntu / WSL2
 conda env create -f environment.yml
+
+# Windows (native)
+conda env create -f environment.windows.yml
 
 # Activate it
 conda activate comfy
@@ -87,7 +93,10 @@ Custom nodes sometimes force-install incompatible versions of core libraries. Co
 ---
 
 ## Part 2: The environment file
-Save the following as `environment.yml` in your **ComfyUI root folder**.
+Put the environment file(s) in your **ComfyUI root folder** (same folder as `requirements.txt`).
+
+- **Ubuntu / WSL2:** `environment.yml`
+- **Windows:** `environment.windows.yml`
 
 ```yaml
 name: comfy
@@ -110,9 +119,14 @@ dependencies:
       - comfy-cli
 ```
 
+    ### Windows note (why there are two files)
+    On Ubuntu/WSL2, conda can install CUDA-enabled PyTorch cleanly via `pytorch-cuda`. On Windows, that conda path is less consistent, so the Windows environment uses pip wheels from PyTorch’s CUDA index.
+
 ### How to use these files together
 1. Save this tutorial as `RECOVERY_GUIDE.md`.
-2. Save the YAML block as `environment.yml` inside your ComfyUI folder.
-3. Run `conda env create -f environment.yml`.
+2. Copy the right environment file into your ComfyUI folder:
+  - Ubuntu/WSL2: `environment.yml`
+  - Windows: `environment.windows.yml`
+3. Run `conda env create -f <that-file>.yml`.
 
 If you want, I can generate specialized YAML variants for **AMD (ROCm)** or **Mac (MPS)**.

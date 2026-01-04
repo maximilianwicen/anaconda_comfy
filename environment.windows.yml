@@ -1,0 +1,19 @@
+name: comfy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - git
+  - numpy
+  - pip:
+      # ComfyUI base deps
+      - -r requirements.txt
+      # ComfyUI manager
+      - comfy-cli
+      # PyTorch for Windows via pip (CUDA 12.1)
+      - --index-url https://download.pytorch.org/whl/cu121
+      - torch
+      - torchvision
+      - torchaudio
